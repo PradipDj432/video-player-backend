@@ -1,18 +1,24 @@
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const awsMaster = require("../../../config/aws/awsMaster");
 const { v4: uuidv4 } = require("uuid");
+const path = require("path");
 
 const putObjectS3 = async (req) => {
-  const fileName = uuidv4() + ".mp4";
-
-  const params = {
-    Bucket: awsMaster.awsConfig.s3_bucket,
-    Key: fileName,
-    Body: req.file.buffer,
-    ContentType: "video/mp4",
-  };
-
   try {
+    // Extract file extension from original file name
+    const originalFileName = req.file.originalname;
+    const fileExtension = path.extname(originalFileName) || ".bin"; // Default to ".bin" if no extension is found
+
+    // Generate unique file name with the correct extension
+    const fileName = uuidv4() + fileExtension;
+
+    const params = {
+      Bucket: awsMaster.awsConfig.s3_bucket,
+      Key: fileName,
+      Body: req.file.buffer,
+      ContentType: req.file.mimetype, // Dynamically set content type
+    };
+
     const command = new PutObjectCommand(params);
     const data = await awsMaster.connectS3.send(command);
 
