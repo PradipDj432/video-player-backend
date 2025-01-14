@@ -6,9 +6,7 @@ const getAllVideoHandler = async (req, res) => {
     configMaster.logger.info("video -> getAllVideoHandler -> Start");
 
     const allVideo = await EntityMaster.VideoMetadata.find();
-    configMaster.logger.info(
-      "video -> getAllVideoHandler -> Metadata saved to MongoDB"
-    );
+    configMaster.logger.info("video -> getAllVideoHandler -> Metadata Success");
 
     res.status(200).json(allVideo);
   } catch (error) {

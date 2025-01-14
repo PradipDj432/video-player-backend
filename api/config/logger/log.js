@@ -1,37 +1,56 @@
 const winston = require("winston");
-const path = require("path");
+const CloudWatchTransport = require("winston-cloudwatch");
+const awsMaster = require("./../aws/awsMaster");
 
-// Configure the winston logger
+// Enhanced error logging
+const cloudWatchErrorHandler = (err) => {
+  if (err) {
+    console.error("CloudWatch Transport Error:", err);
+  }
+};
+
 const logger = winston.createLogger({
-  level: "info", // Set the default log level (can be adjusted to 'debug', 'warn', 'error', etc.)
+  level: "info",
   format: winston.format.combine(
-    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), // Add timestamp to logs
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     winston.format.printf(({ timestamp, level, message }) => {
       return `${timestamp} [${level}]: ${message}`;
     })
   ),
   transports: [
-    // Console transport
     new winston.transports.Console({
       format: winston.format.combine(
-        winston.format.colorize(), // Add colors to the log levels in the console
+        winston.format.colorize(),
         winston.format.simple()
       ),
     }),
-
-    // File transport (for general logs)
-    new winston.transports.File({
-      filename: path.join(__dirname, "logs/app.log"),
-      level: "info", // You can set the level for different transports
+    new CloudWatchTransport({
+      logGroupName: "video_player_log_group",
+      logStreamName: "video_player_log_stream",
+      awsAccessKeyId: awsMaster.awsConfig.access_key,
+      awsSecretAccessKey: awsMaster.awsConfig.secret_access_key,
+      region: awsMaster.awsConfig.region,
+      messageFormatter: ({ level, message }) => {
+        return `[${level}] ${message}`;
+      },
+      onError: cloudWatchErrorHandler,
     }),
-
-    // File transport for error logs
-    new winston.transports.File({
-      filename: path.join(__dirname, "logs/error.log"),
-      level: "error", // Only log error messages to this file
+    new CloudWatchTransport({
+      logGroupName: "video_player_log_group",
+      logStreamName: "video_player_error_log_stream",
+      awsAccessKeyId: awsMaster.awsConfig.access_key,
+      awsSecretAccessKey: awsMaster.awsConfig.secret_access_key,
+      region: awsMaster.awsConfig.region,
+      messageFormatter: ({ level, message }) => {
+        return `[${level}] ${message}`;
+      },
+      onError: cloudWatchErrorHandler,
     }),
   ],
 });
 
-// Export logger to use throughout your application
+// Test logging to ensure it reaches CloudWatch
+logger.info("Test log to ensure CloudWatch transport is working");
+
+// Export the logger
 module.exports = logger;
