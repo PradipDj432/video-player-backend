@@ -1,8 +1,8 @@
 const UserDetails = require("./userDetails");
 const VideoMetadata = require("./videoMetadata");
-const EntityMaster = {};
+const entityMaster = {};
 
 entityMaster.UserDetails = UserDetails;
 entityMaster.VideoMetadata = VideoMetadata;
 
-module.exports = EntityMaster;
+module.exports = entityMaster;
