@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const configMaster = require("../configMaster");
 
 const MONGO_URI = process.env.MONGO_URI;
 const options = {
