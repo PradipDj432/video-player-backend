@@ -8,6 +8,7 @@ const options = {
 
 const connectMongoDB = async () => {
   try {
+    mongoose.set("strictQuery", true);
     await mongoose.connect(MONGO_URI, options);
     console.log("MongoDB connected successfully!");
   } catch (error) {
