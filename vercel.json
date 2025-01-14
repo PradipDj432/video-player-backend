@@ -12,12 +12,7 @@
       "dest": "/api/index.js"
     }
   ],
-  "functions": {
-    "api/index.js": {
-      "memory": 512,
-      "maxDuration": 30
-    }
-  },
+
   "env": {
     "AWS_ACCESS_KEY1": "@aws-access-key-id",
     "AWS_SECRET_ACCESS_KEY": "@aws-secret-access-key",
