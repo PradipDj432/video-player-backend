@@ -13,7 +13,7 @@ const putObjectS3 = async (req) => {
     const fileName = uuidv4() + fileExtension;
 
     const params = {
-      Bucket: awsMaster.awsConfig.s3_bucket,
+      Bucket: process.env.AWS_S3_BUCKET,
       Key: fileName,
       Body: req.file.buffer,
       ContentType: req.file.mimetype, // Dynamically set content type
