@@ -1,5 +1,5 @@
 const logger = require("./logger/log");
-const connectMongoDB = require("./mongodb/connectMongoDB");
+const connectMongoDB = require("./mongoDB/connectMongoDB");
 const awsMaster = require("./aws/awsMaster");
 const configMaster = {};
 
