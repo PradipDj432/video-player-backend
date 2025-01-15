@@ -4,9 +4,12 @@ const express = require("express");
 const routesMaster = require("./routes/routesMaster");
 const configMaster = require("./config/configMaster");
 const cors = require("cors");
-
+//https://video-player-frontend-ivory.vercel.app
 const corsOptions = {
-  origin: ["https://video-player-frontend-ivory.vercel.app"],
+  origin: [
+    "https://video-player-frontend-ivory.vercel.app",
+    "http://localhost:3001",
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
