@@ -13,7 +13,7 @@ const postVideoHandler = async (req, res) => {
       const videoMetadata = new EntityMaster.VideoMetadata({
         name,
         description,
-        s3_video_url: `https://${process.env.AWS_S3_BUCKET}.s3.us-east-1.amazonaws.com/${isUpload.file_name}`,
+        s3_video_url: `https://${configMaster.awsMaster.awsConfig.s3_bucket}.s3.${configMaster.awsMaster.awsConfig.region}.amazonaws.com/${isUpload.file_name}`,
         video_lengths: video_lengths || 0,
         is_active: true,
       });

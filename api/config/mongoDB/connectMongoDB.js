@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const MONGO_URI = process.env.MONGO_URI;
+const configMaster = require("./../configMaster");
+const mongo_url = process.env.MONGO_URI;
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -9,11 +9,12 @@ const options = {
 const connectMongoDB = async () => {
   try {
     mongoose.set("strictQuery", true);
-    await mongoose.connect(MONGO_URI, options);
+    await mongoose.connect(mongo_url, options);
     console.log("MongoDB connected successfully!");
-    // configMaster.logger.info("video -> getAllVideoHandler -> Metadata Success");
+    configMaster.logger.info("MongoDB connected successfully!");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
+    configMaster.logger.info("MongoDB connection error:", error.message);
     process.exit(1);
   }
 };
