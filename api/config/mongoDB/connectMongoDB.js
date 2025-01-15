@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const configMaster = require("./../configMaster");
+
 const mongo_url = process.env.MONGO_URI;
 const options = {
   useNewUrlParser: true,
@@ -11,10 +11,10 @@ const connectMongoDB = async () => {
     mongoose.set("strictQuery", true);
     await mongoose.connect(mongo_url, options);
     console.log("MongoDB connected successfully!");
-    configMaster.logger.info("MongoDB connected successfully!");
+    // configMaster.logger.info("MongoDB connected successfully!");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
-    configMaster.logger.info("MongoDB connection error:", error.message);
+    // configMaster.logger.info("MongoDB connection error:", error.message);
     process.exit(1);
   }
 };
