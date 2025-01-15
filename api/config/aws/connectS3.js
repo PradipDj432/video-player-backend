@@ -1,5 +1,5 @@
 const { S3Client } = require("@aws-sdk/client-s3");
-
+console.log(process.env);
 const connectS3 = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {
