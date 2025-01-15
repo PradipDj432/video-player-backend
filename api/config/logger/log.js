@@ -49,8 +49,4 @@ const logger = winston.createLogger({
   ],
 });
 
-// Test logging to ensure it reaches CloudWatch
-logger.info("Test log to ensure CloudWatch transport is working");
-
-// Export the logger
 module.exports = logger;
