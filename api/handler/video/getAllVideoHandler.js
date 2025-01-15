@@ -5,10 +5,13 @@ const getAllVideoHandler = async (req, res) => {
   try {
     configMaster.logger.info("video -> getAllVideoHandler -> Start");
 
-    const allVideo = await EntityMaster.VideoMetadata.find();
+    const allVideos = await EntityMaster.VideoMetadata.find().sort({
+      createdAt: -1,
+    });
+
     configMaster.logger.info("video -> getAllVideoHandler -> Metadata Success");
 
-    res.status(200).json(allVideo);
+    res.status(200).json(allVideos);
   } catch (error) {
     configMaster.logger.error(
       `video -> getAllVideoHandler -> Error: ${error.message}`
