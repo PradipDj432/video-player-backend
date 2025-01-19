@@ -9,10 +9,7 @@ const cors = require("cors");
 
 // CORS configuration
 const corsOptions = {
-  origin: [
-    "https://video-player-frontend-ivory.vercel.app",
-    "http://localhost:3001",
-  ],
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
