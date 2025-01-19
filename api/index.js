@@ -22,7 +22,7 @@ const server = http.createServer(app);
 // Initialize Socket.IO with the server
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3001", // Frontend URL
+    origin: "*", // Frontend URL
     methods: ["GET", "POST"],
   },
 });
